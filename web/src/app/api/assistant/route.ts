@@ -95,7 +95,10 @@ function explainRevert(contractKey: Call["contract"], error: unknown): string {
       try {
         const parsed = c.interface.parseError(data);
         if (parsed) {
-          const args = parsed.args.map((a: unknown) => (typeof a === "bigint" && a > BigInt(1e15) ? `${ethers.formatEther(a)} DWC` : String(a)));
+          const args = parsed.args.map((a: unknown, i: number) => {
+            const value = typeof a === "bigint" && a > BigInt(1e15) ? `${ethers.formatEther(a)} DWC` : String(a);
+            return `${parsed.fragment.inputs[i]?.name ?? i}=${value}`;
+          });
           return `${parsed.name}(${args.join(", ")})`;
         }
       } catch {}
