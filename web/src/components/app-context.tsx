@@ -4,6 +4,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { useActiveAccount, useSendAndConfirmTransaction } from "thirdweb/react";
 import type { Call } from "@/lib/actions";
+import { explainError } from "@/lib/errors";
 import { explorerTx, prepare } from "@/lib/web3";
 
 type Notice = { kind: "ok" | "error" | "pending"; text: string; hash?: string };
@@ -74,7 +75,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setTimeout(refresh, 6000);
         return receipt.transactionHash;
       } catch (e: any) {
-        setNotice({ kind: "error", text: `${call.summary}: non riuscito. ${String(e?.message ?? e).slice(0, 220)}` });
+        setNotice({ kind: "error", text: `${call.summary}: non riuscito. ${explainError(e)}` });
         return null;
       } finally {
         setBusy(false);
