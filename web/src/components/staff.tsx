@@ -64,7 +64,7 @@ export function Vendor() {
 // ───────────────────────────── Back-office HR ─────────────────────────────
 
 export function Hr() {
-  const { state, sign, busy, nameOf, refresh } = useApp();
+  const { state, sign, busy, nameOf, refresh, notify } = useApp();
   const hr = state?.hr;
   const rules = state?.regolamento?.versions?.find((v: any) => v.inVigore);
   const year = new Date().getUTCFullYear();
@@ -81,8 +81,10 @@ export function Hr() {
   if (!hr) return <p className="text-muted">Questa sezione è riservata a Risorse Umane.</p>;
 
   async function saveDirectory() {
-    await fetch("/api/directory", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ address: form.address, name: form.name, kind: form.kind }) });
+    const res = await fetch("/api/directory", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ address: form.address, name: form.name, kind: form.kind }) });
     await refresh();
+    if (res.ok) notify(`${form.name} salvato nella rubrica interna (fuori dalla blockchain).`);
+    else notify("Non sono riuscito a salvare in rubrica: controlla nome e indirizzo.", "error");
   }
 
   const members: any[] = hr.members;

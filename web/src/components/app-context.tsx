@@ -17,6 +17,7 @@ type Ctx = {
   sign: (call: Call) => Promise<string | null>;
   nameOf: (address?: string) => string;
   refresh: () => Promise<void>;
+  notify: (text: string, kind?: Notice["kind"]) => void;
 };
 
 const AppContext = createContext<Ctx | null>(null);
@@ -68,6 +69,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         const receipt = await mutateAsync(prepare(call));
         setNotice({ kind: "ok", text: `${call.summary}: registrato su Avalanche.`, hash: receipt.transactionHash });
         await refresh();
+        // la rete pubblica a volte risponde con un attimo di ritardo: rileggo ancora
+        setTimeout(refresh, 2500);
+        setTimeout(refresh, 6000);
         return receipt.transactionHash;
       } catch (e: any) {
         setNotice({ kind: "error", text: `${call.summary}: non riuscito. ${String(e?.message ?? e).slice(0, 220)}` });
@@ -79,9 +83,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     [mutateAsync, refresh],
   );
 
+  const notify = useCallback((text: string, kind: Notice["kind"] = "ok") => setNotice({ kind, text }), []);
+
   const value = useMemo(
-    () => ({ state, address, canSign: Boolean(account), busy, notice, sign, nameOf, refresh }),
-    [state, address, account, busy, notice, sign, nameOf, refresh],
+    () => ({ state, address, canSign: Boolean(account), busy, notice, sign, nameOf, refresh, notify }),
+    [state, address, account, busy, notice, sign, nameOf, refresh, notify],
   );
 
   return (

@@ -16,3 +16,6 @@ web/data/
 # indirizzi della blockchain locale di sviluppo
 deployments/localhost.json
 deployments/hardhat.json
+
+# strumenti locali
+.tools/
