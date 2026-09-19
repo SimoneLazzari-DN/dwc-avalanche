@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-label="DWC — Dreamnet Welfare Coin">
+  <title>DWC — Dreamnet Welfare Coin</title>
+  <!-- gettone: corpo nero, doppio bordo, zigrinatura, disco bianco -->
+  <circle cx="512" cy="512" r="500" fill="#111111"/>
+  <circle cx="512" cy="512" r="474" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+  <circle cx="512" cy="512" r="436" fill="none" stroke="#FFFFFF" stroke-width="26" stroke-dasharray="7 15.83" stroke-opacity="0.9"/>
+  <circle cx="512" cy="512" r="398" fill="#FFFFFF"/>
+  <circle cx="512" cy="512" r="372" fill="none" stroke="#111111" stroke-width="6"/>
+  <g transform="translate(512 512) scale(1.15) translate(-512 -512)">
+  <!-- la D -->
+  <path fill="#111111" fill-rule="evenodd"
+        d="M356 282 H506 A230 230 0 0 1 506 742 H356 Z
+           M450 372 H506 A140 140 0 0 1 506 652 H450 Z"/>
+  <!-- i due tagli orizzontali, come nei simboli di valuta: prima lo stacco bianco, poi la linea -->
+  <g fill="#FFFFFF">
+    <rect x="270" y="436" width="352" height="58"/>
+    <rect x="270" y="530" width="352" height="58"/>
+  </g>
+  <g fill="#111111">
+    <rect x="282" y="448" width="328" height="34"/>
+    <rect x="282" y="542" width="328" height="34"/>
+  </g>
+  </g>
+</svg>

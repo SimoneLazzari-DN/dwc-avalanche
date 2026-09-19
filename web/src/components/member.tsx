@@ -181,7 +181,11 @@ export function MyWelfare() {
 
       <div className="card md:col-span-1">
         <p className="label">Il mio saldo</p>
-        <p className="text-4xl font-semibold tracking-tight">{fmtDwc(me.balanceDwc)}</p>
+        <div className="flex items-center gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/dwc-coin.png" alt="" className="h-12 w-12" />
+          <p className="text-4xl font-semibold tracking-tight">{fmtDwc(me.balanceDwc)}</p>
+        </div>
         <p className="mt-1 text-sm text-muted">1 DWC = 1 € di valore d&apos;acquisto nel catalogo</p>
         <div className="mt-4 flex flex-wrap gap-1.5">
           <span className="chip">{me.status === "attivo" ? "Membro attivo" : me.status === "uscito" ? "Uscito" : "Non ancora membro"}</span>

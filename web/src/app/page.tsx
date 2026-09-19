@@ -36,7 +36,13 @@ function Shell() {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          {me && <span className="rounded-xl bg-white px-3 py-2 text-sm font-semibold">{fmtDwc(me.balanceDwc)}</span>}
+          {me && (
+            <span className="flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-sm font-semibold">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/brand/dwc-coin.png" alt="" className="h-6 w-6" />
+              {fmtDwc(me.balanceDwc)}
+            </span>
+          )}
           {client ? (
             <ConnectButton
               client={client}
