@@ -154,6 +154,7 @@ export async function getRegolamento() {
 // ───────────── Storico movimenti: scansione incrementale degli eventi, tenuta in memoria ─────────────
 
 type Movement = {
+  kind: "base" | "ruolo" | "extra" | "commerciale" | "bonus" | "acquisto" | "rimborso" | "scambio" | "azzeramento";
   block: number;
   tx: string;
   member: string;
@@ -162,7 +163,8 @@ type Movement = {
   label: string;
 };
 
-const cache = { next: (deployment as { fromBlock?: number }).fromBlock ?? 0, movements: [] as Movement[] };
+const KINDS = ["base", "ruolo", "extra", "commerciale", "bonus"] as const;
+const cache = { next: (deployment as { fromBlock?: number }).fromBlock ?? 0, movements: [] as Movement[], burnedByMarket: 0 };
 let scanning: Promise<void> | null = null;
 
 async function scan() {
@@ -177,6 +179,7 @@ async function scan() {
     ]);
     for (const e of credited as ethers.EventLog[]) {
       cache.movements.push({
+        kind: KINDS[Number(e.args.kind)],
         block: e.blockNumber,
         tx: e.transactionHash,
         member: e.args.member,
@@ -190,24 +193,29 @@ async function scan() {
       if (from === ethers.ZeroAddress) continue; // emissioni: già coperte da Credited
       const base = { block: e.blockNumber, tx: e.transactionHash, amountDwc: fmt(value) };
       if (dest === ethers.ZeroAddress) {
-        if (from.toLowerCase() !== marketAddr)
-          cache.movements.push({ ...base, member: from, direction: "uscita", label: "Saldo azzerato dopo 6 mesi dall'uscita" });
+        if (from.toLowerCase() === marketAddr) cache.burnedByMarket += base.amountDwc; // servizio erogato
+        else cache.movements.push({ ...base, kind: "azzeramento", member: from, direction: "uscita", label: "Saldo azzerato dopo 6 mesi dall'uscita" });
       } else if (dest.toLowerCase() === marketAddr) {
-        cache.movements.push({ ...base, member: from, direction: "uscita", label: "Acquisto nel marketplace" });
+        cache.movements.push({ ...base, kind: "acquisto", member: from, direction: "uscita", label: "Acquisto nel marketplace" });
       } else if (from.toLowerCase() === marketAddr) {
-        cache.movements.push({ ...base, member: dest, direction: "entrata", label: "Rimborso ordine annullato" });
+        cache.movements.push({ ...base, kind: "rimborso", member: dest, direction: "entrata", label: "Rimborso ordine annullato" });
       } else {
-        cache.movements.push({ ...base, member: from, direction: "uscita", label: `Scambio verso ${dest}` });
-        cache.movements.push({ ...base, member: dest, direction: "entrata", label: `Scambio da ${from}` });
+        cache.movements.push({ ...base, kind: "scambio", member: from, direction: "uscita", label: `Scambio verso ${dest}` });
+        cache.movements.push({ ...base, kind: "scambio", member: dest, direction: "entrata", label: `Scambio da ${from}` });
       }
     }
     cache.next = to + 1;
   }
 }
 
-export async function getMovements(address: string) {
+async function allMovements() {
   scanning ??= scan().finally(() => (scanning = null));
   await scanning;
+  return cache.movements;
+}
+
+export async function getMovements(address: string) {
+  await allMovements();
   const a = address.toLowerCase();
   return cache.movements.filter((m) => m.member.toLowerCase() === a).sort((x, y) => y.block - x.block);
 }
@@ -240,6 +248,59 @@ export async function getState(address?: string) {
     me: { ...me, isHr, isVendor: vendorServiceIds.length > 0, spentThisMonth, movements },
     myOrders: orders.filter((o: { member: string }) => o.member.toLowerCase() === a),
     vendorOrders: orders.filter((o: { serviceId: number }) => vendorServiceIds.includes(o.serviceId)),
-    hr: isHr ? { members: await getMembers(), orders } : null,
+    hr: isHr ? await getHrView(orders, catalog) : null,
+  };
+}
+
+const CREDIT_LABELS: Record<string, string> = {
+  base: "Credito base soci",
+  ruolo: "Credito ruolo",
+  extra: "Attività extra (baratto sociale)",
+  commerciale: "Bonus commerciali",
+  bonus: "Altri bonus HR",
+};
+
+/// Vista d'insieme per Risorse Umane: persone, ordini, movimenti e statistiche dell'intero network.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function getHrView(orders: any[], catalog: any[]) {
+  const [members, movements, escrow] = await Promise.all([
+    getMembers(),
+    allMovements(),
+    contracts.token.balanceOf(deployment.contracts.WelfareMarketplace),
+  ]);
+  const sum = (list: Movement[]) => list.reduce((t, m) => t + m.amountDwc, 0);
+  const credits = movements.filter((m) => m.kind in CREDIT_LABELS);
+  const paid = orders.filter((o) => o.status === "in_lavorazione" || o.status === "erogato");
+
+  const people = members.map((m) => {
+    const mine = movements.filter((x) => x.member.toLowerCase() === m.address.toLowerCase());
+    const myOrders = orders.filter((o) => o.member.toLowerCase() === m.address.toLowerCase());
+    return {
+      ...m,
+      receivedDwc: sum(mine.filter((x) => x.kind in CREDIT_LABELS)),
+      spentDwc: sum(mine.filter((x) => x.kind === "acquisto")) - sum(mine.filter((x) => x.kind === "rimborso")),
+      ordersCount: myOrders.length,
+    };
+  });
+
+  return {
+    members: people,
+    orders,
+    movements: [...movements].sort((a, b) => b.block - a.block),
+    stats: {
+      activeMembers: members.filter((m) => m.status === "attivo").length,
+      exitedMembers: members.filter((m) => m.status === "uscito").length,
+      mintedDwc: sum(credits),
+      circulatingDwc: members.reduce((t, m) => t + m.balanceDwc, 0),
+      escrowDwc: fmt(escrow),
+      burnedDwc: cache.burnedByMarket,
+      ordersTotal: orders.length,
+      ordersOpen: orders.filter((o) => ["richiesto", "preventivato", "in_lavorazione"].includes(o.status)).length,
+      byCreditKind: Object.entries(CREDIT_LABELS).map(([kind, label]) => ({ label, dwc: sum(credits.filter((m) => m.kind === kind)) })),
+      byService: catalog
+        .map((s) => ({ label: s.title as string, dwc: paid.filter((o) => o.serviceId === s.id).reduce((t: number, o) => t + o.amountDwc, 0), orders: paid.filter((o) => o.serviceId === s.id).length }))
+        .filter((s) => s.orders > 0)
+        .sort((a, b) => b.dwc - a.dwc),
+    },
   };
 }

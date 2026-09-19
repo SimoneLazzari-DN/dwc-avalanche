@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ConnectButton } from "thirdweb/react";
 import { AppProvider, fmtDwc, useApp } from "@/components/app-context";
 import { Assistant, Marketplace, MyWelfare } from "@/components/member";
+import { Overview } from "@/components/overview";
 import { Hr, Regolamento, Vendor } from "@/components/staff";
 import { chain, client, explorerAddress, wallets } from "@/lib/web3";
 
@@ -12,7 +13,8 @@ const TABS = [
   { id: "welfare", label: "Il mio welfare" },
   { id: "marketplace", label: "Marketplace" },
   { id: "fornitore", label: "Fornitore", only: "vendor" },
-  { id: "hr", label: "Risorse Umane", only: "hr" },
+  { id: "panoramica", label: "Panoramica HR", only: "hr" },
+  { id: "hr", label: "Gestione HR", only: "hr" },
   { id: "regolamento", label: "Regolamento" },
 ] as const;
 
@@ -51,12 +53,12 @@ function Shell() {
 
       {address && !canSign && <p className="mt-3 rounded-xl bg-accent-soft px-3 py-2 text-sm">Modalità sola lettura: stai guardando l&apos;app come {address}.</p>}
 
-      <nav className="mt-6 flex flex-wrap gap-1 border-b border-line">
+      <nav className="mt-6 flex gap-1 overflow-x-auto border-b border-line">
         {tabs.map((t) => (
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
-            className={`-mb-px border-b-2 px-4 py-2 text-sm font-medium ${tab === t.id ? "border-accent text-ink" : "border-transparent text-muted hover:text-ink"}`}
+            className={`-mb-px shrink-0 whitespace-nowrap border-b-2 px-4 py-2 text-sm font-medium ${tab === t.id ? "border-accent text-ink" : "border-transparent text-muted hover:text-ink"}`}
           >
             {t.label}
           </button>
@@ -69,6 +71,7 @@ function Shell() {
         {tab === "welfare" && <MyWelfare />}
         {tab === "marketplace" && <Marketplace />}
         {tab === "fornitore" && <Vendor />}
+        {tab === "panoramica" && <Overview />}
         {tab === "hr" && <Hr />}
         {tab === "regolamento" && <Regolamento />}
       </main>
