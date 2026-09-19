@@ -38,11 +38,12 @@ Legenda: `[x]` fatto · `[ ]` da fare · **← QUI** dove siamo · 🙋 serve Si
 
 ## Tappa 3 — Accensione su Fuji ✅ (tranne l'ultimo punto)
 - [x] AVAX di prova sul portafoglio di pubblicazione (wallet MetaMask di prova, solo testnet)
-- [x] Chiave API Anthropic e Client ID thirdweb in - [x] Contratti pubblicati su Fuji, regolamento v1+v2 e catalogo caricati, indirizzi nel README
+- [x] Chiave API Anthropic e Client ID thirdweb in `web/.env.local`
+- [x] Contratti pubblicati su Fuji, regolamento v1+v2 e catalogo caricati, indirizzi nel README
 - [x] Assistente AI provato contro Fuji (risponde in ~7 secondi, spiega i rifiuti del contratto)
 - [x] Nel catalogo: **Cappello Blockchain Beach 2026** — 20 DWC, 10 pezzi, chi prima arriva
 - [ ] 🙋 Primo accesso di Simone con l'email → indirizzo → ruolo HR  **← QUI**
-- [ ] Verifica che i costi di rete sponsorizzati funzionino (piano B pronto:  + )
+- [ ] Verifica che i costi di rete sponsorizzati funzionino (piano B pronto: `NEXT_PUBLIC_SPONSOR_GAS=false` + `scripts/fund.js`)
 
 ## Tappa 4 — Sistema pronto per persone vere — obiettivo 14:00
 - [ ] App raggiungibile dai telefoni delle colleghe con un indirizzo https pubblico (tunnel verso il PC di Simone)
@@ -68,7 +69,7 @@ Legenda: `[x]` fatto · `[ ]` da fare · **← QUI** dove siamo · 🙋 serve Si
 - [ ] 🙋 Submission sul Builder Hub (repo + slide)
 
 ## Se avanza tempo
-- [ ] Logo DreamNet e personalizzazione dell'area personale (🙋 mandami il file del logo)
+- [x] Logo DreamNet e personalizzazione dell'area personale
 - [ ] Verifica dei contratti sull'explorer · impronta (hash) del PDF del regolamento in ogni versione
 - [ ] Saldi riservati con eERC · video demo di 2 minuti
 
