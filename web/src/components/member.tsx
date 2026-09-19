@@ -160,8 +160,24 @@ export function MyWelfare() {
 
   const colleagues = (state.directory ?? []).filter((p: any) => p.kind === "membro" && p.address.toLowerCase() !== address?.toLowerCase());
 
+  const myName = nameOf(address);
+  const initials = myName.startsWith("0x") ? "?" : myName.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase();
+  const earned = (me.movements ?? []).filter((m: any) => m.direction === "entrata").reduce((t: number, m: any) => t + m.amountDwc, 0);
+  const spentTotal = (me.movements ?? []).filter((m: any) => m.direction === "uscita").reduce((t: number, m: any) => t + m.amountDwc, 0);
+  const caps = (state.catalog ?? []).filter((s: any) => s.monthlyCapDwc > 0);
+
   return (
     <div className="grid gap-4 md:grid-cols-3">
+      <div className="card md:col-span-3 flex flex-wrap items-center gap-4">
+        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-ink text-lg font-semibold text-white">{initials}</div>
+        <div className="mr-auto">
+          <p className="text-xl font-semibold">Ciao{myName.startsWith("0x") ? "" : `, ${myName.split(" ")[0]}`} 👋</p>
+          <p className="text-sm text-muted">Questo è il tuo welfare: ogni movimento che vedi è registrato su Avalanche e verificabile.</p>
+        </div>
+        <div className="text-right"><p className="label">Ricevuti</p><p className="font-semibold text-ok">+{fmtDwc(earned)}</p></div>
+        <div className="text-right"><p className="label">Usati</p><p className="font-semibold text-accent">−{fmtDwc(spentTotal)}</p></div>
+      </div>
+
       <div className="card md:col-span-1">
         <p className="label">Il mio saldo</p>
         <p className="text-4xl font-semibold tracking-tight">{fmtDwc(me.balanceDwc)}</p>
@@ -183,6 +199,16 @@ export function MyWelfare() {
             Questo indirizzo non è ancora nel registro dei membri. Comunicalo a Risorse Umane: <span className="font-mono text-xs break-all">{address}</span>
           </p>
         )}
+
+        {caps.map((c: any) => {
+          const used = me.spentThisMonth?.[c.id] ?? 0;
+          return (
+            <div key={c.id} className="mt-4">
+              <div className="flex justify-between text-xs text-muted"><span>{c.title} · questo mese</span><span>{used} / {c.monthlyCapDwc}</span></div>
+              <div className="mt-1 h-2 rounded-full bg-background"><div className="h-2 rounded-full bg-accent" style={{ width: `${Math.min(100, (used / c.monthlyCapDwc) * 100)}%` }} /></div>
+            </div>
+          );
+        })}
 
         <div className="mt-6 border-t border-line pt-4">
           <p className="label">Scambia con un collega</p>

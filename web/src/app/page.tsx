@@ -25,9 +25,13 @@ function Shell() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-6">
       <header className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-widest text-accent">B-Chainers Labs · Avalanche Fuji</p>
-          <h1 className="text-2xl font-semibold tracking-tight">DWC — il welfare della cooperativa, con le regole su blockchain</h1>
+        <div className="flex items-center gap-4">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/dreamnet-logo.png" alt="DreamNet Soc. Coop." className="h-12 w-auto" />
+          <div className="border-l border-line pl-4">
+            <p className="text-xs font-medium uppercase tracking-widest text-accent">Welfare · B-Chainers Labs · Avalanche Fuji</p>
+            <h1 className="text-xl font-semibold tracking-tight">DWC — il welfare della cooperativa, con le regole su blockchain</h1>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           {me && <span className="rounded-xl bg-white px-3 py-2 text-sm font-semibold">{fmtDwc(me.balanceDwc)}</span>}
