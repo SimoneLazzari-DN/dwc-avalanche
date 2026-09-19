@@ -25,12 +25,12 @@ function Shell() {
   const tabs = TABS.filter((t) => !("only" in t) || (t.only === "hr" ? me?.isHr : me?.isVendor));
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6">
+    <div className="mx-auto max-w-6xl px-4 py-4 sm:py-6">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/dreamnet-logo.png" alt="DreamNet Soc. Coop." className="h-12 w-auto" />
-          <div className="border-l border-line pl-4">
+          <img src="/brand/dreamnet-logo.png" alt="DreamNet Soc. Coop." className="h-9 w-auto sm:h-12" />
+          <div className="hidden border-l border-line pl-4 sm:block">
             <p className="text-xs font-medium uppercase tracking-widest text-accent">Welfare · B-Chainers Labs · Avalanche Fuji</p>
             <h1 className="text-xl font-semibold tracking-tight">DWC — il welfare della cooperativa, con le regole su blockchain</h1>
           </div>
@@ -51,9 +51,9 @@ function Shell() {
         </div>
       </header>
 
-      {address && !canSign && <p className="mt-3 rounded-xl bg-accent-soft px-3 py-2 text-sm">Modalità sola lettura: stai guardando l&apos;app come {address}.</p>}
+      {address && !canSign && <p className="mt-3 break-all rounded-xl bg-accent-soft px-3 py-2 text-sm">Modalità sola lettura: stai guardando l&apos;app come {address}.</p>}
 
-      <nav className="mt-6 flex gap-1 overflow-x-auto border-b border-line">
+      <nav className="mt-4 flex gap-1 overflow-x-auto border-b border-line [scrollbar-width:none] sm:mt-6">
         {tabs.map((t) => (
           <button
             key={t.id}

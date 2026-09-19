@@ -21,6 +21,7 @@ type Proposal = Call & { id: string; done?: string | null };
 type Msg = { role: "user" | "assistant"; content: string; proposals?: Proposal[] };
 
 const SUGGESTIONS_MEMBER = [
+  "Vorrei il cappello di Blockchain Beach",
   "Quanto ho di saldo e cosa posso farci?",
   "Vorrei 30 € di buoni pasto Edenred",
   "Ho uno scontrino Sigma da 80 €, quanto posso coprire con i DWC?",
@@ -82,7 +83,7 @@ export function Assistant() {
   const suggestions = [...SUGGESTIONS_MEMBER, ...(state?.me?.isHr ? SUGGESTIONS_HR : [])];
 
   return (
-    <div className="card flex h-[70vh] flex-col p-0">
+    <div className="card flex h-[72dvh] flex-col p-0">
       <div className="border-b border-line px-5 py-3">
         <h2 className="font-semibold">Assistente welfare</h2>
         <p className="text-sm text-muted">Scrivi cosa ti serve. L&apos;assistente controlla le regole sul contratto e prepara l&apos;operazione: tu confermi e firmi.</p>
