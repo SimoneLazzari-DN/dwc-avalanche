@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const WORDS = ["Regole eque", "Emissione automatica", "Circuito chiuso", "AI + Avalanche", "Zero fogli Excel", "Tutto verificabile"];
 const GRID = 32; // 32 × 32 = 1024 frammenti (quelli trasparenti si scartano)
 
-type Piece = { sx: number; sy: number; hx: number; hy: number; dx: number; dy: number; spin: number; delay: number };
+type Piece = { sx: number; sy: number; dx: number; dy: number; spin: number; delay: number };
 
 /// Schermata d'ingresso su fondo bianco. Il gettone si compone da ~1000 frammenti; con «Entra» esplode
 /// e lo sfondo svanisce sull'app. Si vede una sola volta per sessione; un tocco qualsiasi la salta.
@@ -53,7 +53,7 @@ export function Splash() {
         const hy = r.top + (y + 0.5) * tile;
         const a = Math.atan2(hy - cy, hx - cx) + (Math.random() - 0.5) * 1.1;
         const d = reach * (0.35 + Math.random() * 0.9);
-        list.push({ sx: x, sy: y, hx, hy, dx: Math.cos(a) * d, dy: Math.sin(a) * d, spin: (Math.random() - 0.5) * 14, delay: Math.random() * 0.25 });
+        list.push({ sx: x, sy: y, dx: Math.cos(a) * d, dy: Math.sin(a) * d, spin: (Math.random() - 0.5) * 14, delay: Math.random() * 0.25 });
       }
     }
     pieces.current = list;
@@ -68,14 +68,15 @@ export function Splash() {
     const ctx = cv.getContext("2d")!;
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     const src = img.naturalWidth / GRID;
-    const size = img.getBoundingClientRect().width / GRID;
+    const box = img.getBoundingClientRect();
+    const size = box.width / GRID;
     for (const p of pieces.current) {
       const k = Math.min(1, Math.max(0, (t - p.delay) / (1 - p.delay)));
       if (k >= 1) continue;
       const e = 1 - Math.pow(1 - k, 3);
       ctx.save();
       ctx.globalAlpha = 1 - k * k;
-      ctx.translate(p.hx + p.dx * e, p.hy + p.dy * e + gravity * k * k);
+      ctx.translate(box.left + (p.sx + 0.5) * size + p.dx * e, box.top + (p.sy + 0.5) * size + p.dy * e + gravity * k * k);
       ctx.rotate(p.spin * e);
       const s = size * (1 + k * 1.4) + 0.6;
       ctx.drawImage(img, p.sx * src, p.sy * src, src, src, -s / 2, -s / 2, s, s);
@@ -123,6 +124,13 @@ export function Splash() {
 
   useEffect(() => () => cancelAnimationFrame(raf.current), []);
 
+  useEffect(() => {
+    document.documentElement.style.overflow = phase === "show" ? "hidden" : "";
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
+  }, [phase]);
+
   function enter() {
     if (phase !== "show") return;
     try {
@@ -162,6 +170,7 @@ export function Splash() {
           <img ref={coin} src="/brand/dwc-coin.png" alt="DWC" className="splash-coin" style={{ opacity: coinReady ? 1 : 0 }} onLoad={startOnce} />
         </div>
 
+        <div className="splash-copy">
         <h1 className="splash-title" aria-label="DWC">
           <span><b>D</b></span>
           <span><b>W</b></span>
@@ -173,9 +182,10 @@ export function Splash() {
           con le regole su <em>blockchain</em>
         </p>
 
-        <button className="splash-enter" onClick={enter}>
+        <button className="splash-enter" onClick={(e) => { e.stopPropagation(); enter(); }}>
           Entra <span aria-hidden>→</span>
         </button>
+        </div>
       </div>
 
       <div className="splash-marquee" aria-hidden>

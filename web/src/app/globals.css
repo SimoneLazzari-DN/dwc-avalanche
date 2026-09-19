@@ -106,7 +106,8 @@ body {
   padding: 0 24px;
   text-align: center;
 }
-.splash-stage { position: relative; width: min(62vw, 270px); aspect-ratio: 1; display: grid; place-items: center; }
+.splash-stage { position: relative; flex: none; width: min(62vw, 32vh, 270px); aspect-ratio: 1; display: grid; place-items: center; }
+.splash-copy { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .splash-ring {
   position: absolute;
   inset: 0;
@@ -129,7 +130,7 @@ body {
   display: flex;
   gap: 0.06em;
   margin-top: 6px;
-  font-size: clamp(72px, 22vw, 150px);
+  font-size: clamp(56px, min(22vw, 15vh), 150px);
   font-weight: 800;
   line-height: 0.92;
   letter-spacing: -0.02em;
@@ -177,6 +178,21 @@ body {
 .splash-marquee div { display: flex; width: max-content; animation: splash-marquee 28s linear infinite; }
 .splash-marquee span { font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap; padding: 0 18px; }
 .splash-marquee span::after { content: "✦"; margin-left: 36px; color: #e84142; }
+
+/* Schermo largo: due colonne, testo a sinistra e gettone a destra */
+@media (min-width: 900px) {
+  .splash-top { padding: 26px 48px; font-size: 12px; }
+  .splash-top img { height: 46px; }
+  .splash-center { flex-direction: row-reverse; justify-content: center; gap: clamp(40px, 7vw, 120px); padding: 0 48px; text-align: left; }
+  .splash-copy { align-items: flex-start; gap: 16px; }
+  .splash-stage { width: min(38vw, 62vh, 460px); }
+  .splash-ring text { font-size: 10.5px; }
+  .splash-title { margin-top: 0; font-size: clamp(96px, min(15vw, 30vh), 230px); }
+  .splash-tagline { font-size: clamp(18px, 1.7vw, 26px); }
+  .splash-enter { margin-top: 22px; padding: 16px 44px; font-size: 16px; }
+  .splash-marquee { padding: 14px 0; }
+  .splash-marquee span { font-size: 13px; }
+}
 
 @keyframes splash-fade { to { opacity: 1; } }
 @keyframes splash-up { to { transform: translateY(0); } }
