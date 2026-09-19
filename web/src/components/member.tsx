@@ -170,7 +170,7 @@ export function MyWelfare() {
   return (
     <div className="grid gap-4 md:grid-cols-3">
       <div className="card md:col-span-3 flex flex-wrap items-center gap-4">
-        <Avatar address={address} size={64} />
+        <Avatar address={address} size={104} />
         <div className="mr-auto">
           <p className="text-xl font-semibold">Ciao{myName.startsWith("0x") ? "" : `, ${myName.split(" ")[0]}`} 👋</p>
           <p className="text-sm text-muted">Questo è il tuo welfare: ogni movimento che vedi è registrato su Avalanche e verificabile.</p>

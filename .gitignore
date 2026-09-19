@@ -23,3 +23,6 @@ deployments/hardhat.json
 
 # foto delle persone: mai su git
 web/public/people/
+
+# foto dei servizi (stock / materiale dell evento): restano locali
+web/public/catalog/

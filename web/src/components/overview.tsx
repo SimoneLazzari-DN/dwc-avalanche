@@ -90,7 +90,7 @@ function PersonCard({ person, onClose }: { person: any; onClose: () => void }) {
       <aside className="h-full w-full max-w-xl overflow-y-auto bg-background p-5 shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
-            <Avatar address={person.address} size={64} />
+            <Avatar address={person.address} size={128} />
             <div>
               <h2 className="text-xl font-semibold">{name}</h2>
               <a className="font-mono text-xs text-muted underline" href={explorerAddress(person.address)} target="_blank" rel="noreferrer">
