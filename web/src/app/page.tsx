@@ -5,6 +5,7 @@ import { ConnectButton } from "thirdweb/react";
 import { AppProvider, fmtDwc, useApp } from "@/components/app-context";
 import { Assistant, Marketplace, MyWelfare } from "@/components/member";
 import { Overview } from "@/components/overview";
+import { Splash } from "@/components/splash";
 import { Hr, Regolamento, Vendor } from "@/components/staff";
 import { chain, client, explorerAddress, wallets } from "@/lib/web3";
 
@@ -99,6 +100,7 @@ function Shell() {
 export default function Home() {
   return (
     <AppProvider>
+      <Splash />
       <Shell />
     </AppProvider>
   );
