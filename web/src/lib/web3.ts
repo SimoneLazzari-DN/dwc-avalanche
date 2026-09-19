@@ -12,10 +12,13 @@ export const client = clientId ? createThirdwebClient({ clientId }) : null;
 
 export const chain = deployment.chainId === 43113 ? avalancheFuji : defineChain({ id: deployment.chainId, rpc: "http://127.0.0.1:8545" });
 
+// Piano B: con NEXT_PUBLIC_SPONSOR_GAS=false il portafoglio paga da sé i costi di rete (servono pochi centesimi di AVAX di prova).
+const sponsorGas = process.env.NEXT_PUBLIC_SPONSOR_GAS !== "false";
+
 export const wallets = [
   inAppWallet({
     auth: { options: ["email"] },
-    smartAccount: { chain, sponsorGas: true },
+    ...(sponsorGas ? { smartAccount: { chain, sponsorGas: true } } : {}),
   }),
 ];
 

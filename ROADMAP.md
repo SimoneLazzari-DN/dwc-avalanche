@@ -36,24 +36,35 @@ Legenda: `[x]` fatto · `[ ]` da fare · **← QUI** dove siamo · 🙋 serve Si
 - [x] **Fornitore:** ordini da confermare come erogati · **Regolamento:** le versioni lette dal contratto
 - [x] Repo pubblica su GitHub, controllata: nessuna chiave, nessun dato vero
 
-## Tappa 3 — Accensione su Fuji — obiettivo 13:00  **← QUI**
-- [ ] 🙋 **AVAX di prova** sul portafoglio di pubblicazione `0x341315c8a74F57Fc18c2c0DB00449e73aFf11B15`
-      (coupon dagli organizzatori → https://core.app/tools/testnet-faucet, oppure faucet del Builder Hub con Core Wallet)
-- [ ] 🙋 **Chiave API Anthropic** in `web/.env.local`
-- [ ] 🙋 **Client ID thirdweb** in `web/.env.local` (dominio consentito: `localhost:3000`)
-- [ ] Pubblicazione dei contratti su Fuji + indirizzi nel README
-- [ ] 🙋 Primo accesso con la tua email → mi dici l'indirizzo che compare → ti do il ruolo HR
+## Tappa 3 — Accensione su Fuji ✅ (tranne l'ultimo punto)
+- [x] AVAX di prova sul portafoglio di pubblicazione (wallet MetaMask di prova, solo testnet)
+- [x] Chiave API Anthropic e Client ID thirdweb in - [x] Contratti pubblicati su Fuji, regolamento v1+v2 e catalogo caricati, indirizzi nel README
+- [x] Assistente AI provato contro Fuji (risponde in ~7 secondi, spiega i rifiuti del contratto)
+- [x] Nel catalogo: **Cappello Blockchain Beach 2026** — 20 DWC, 10 pezzi, chi prima arriva
+- [ ] 🙋 Primo accesso di Simone con l'email → indirizzo → ruolo HR  **← QUI**
+- [ ] Verifica che i costi di rete sponsorizzati funzionino (piano B pronto:  + )
 
-## Tappa 4 — Giro completo con 3 persone finte — obiettivo 14:30
-- [ ] Anna (socia, Amministratore + Resp. Sezione + Senior), Bruno (non socio, Junior part-time), Carla (stagista)
-- [ ] Accredito annuale → ore di baratto → buoni Edenred oltre il tetto (rifiuto spiegato dall'AI) → dentro il tetto
-- [ ] Weekend su preventivo: richiesta → prezzo → accettazione → erogazione (DWC bruciati)
-- [ ] Scambio tra colleghi + tentativo verso un estraneo (bloccato dal contratto)
-- [ ] Rifinitura di quello che non convince
+## Tappa 4 — Sistema pronto per persone vere — obiettivo 14:00
+- [ ] App raggiungibile dai telefoni delle colleghe con un indirizzo https pubblico (tunnel verso il PC di Simone)
+      + dominio aggiunto agli *Allowed domains* di thirdweb
+- [ ] Giro di collaudo di Simone come HR: membro → profilo → accredito annuale → acquisto → erogazione
+- [ ] Messaggio con le istruzioni passo passo per le tre colleghe (accesso con email; niente AVAX da procurarsi
+      se la sponsorizzazione funziona)
+- [ ] Le tre colleghe accedono → HR le aggiunge al network, imposta il profilo, fa l'accredito annuale
+      (i nomi restano SOLO nella rubrica locale, mai nella repo né sulla catena)
 
-## Tappa 5 — Consegna — obiettivo 15:30 (margine di 30 minuti)
-- [ ] Slide del pitch: problema e utente · demo · l'azione su Avalanche · perché è pronto per mainnet
-- [ ] README aggiornato con indirizzi e link alle transazioni della demo
+## Tappa 5 — Prova generale della presentazione — obiettivo 15:00
+- [ ] Scaletta cronometrata (3-4 minuti): problema → soluzione → demo dal vivo → perché Avalanche / mainnet
+- [ ] **Momento live:** una collega chiede all'assistente «vorrei il cappello di Blockchain Beach» dal suo telefono →
+      conferma e firma → il saldo scende → HR/fornitore conferma la consegna → DWC bruciati → prova sull'explorer
+- [ ] Secondo momento: richiesta oltre una regola (es. Edenred oltre il tetto) → l'AI spiega il rifiuto del contratto
+- [ ] Prova completa almeno una volta con le persone vere, sugli stessi dispositivi e sulla stessa rete dell'evento
+- [ ] Piano di riserva se la rete dell'aula cade: hotspot del telefono; se cade tutto: schermate/video registrati durante la prova
+- [ ] Tab dell'explorer già aperti sui tre contratti; saldo AVAX del portafoglio di servizio controllato
+
+## Tappa 6 — Consegna — entro le 16:00
+- [ ] Slide del pitch (sessione separata) riviste e unite alla repo
+- [ ] README aggiornato con i link alle transazioni della demo
 - [ ] 🙋 Submission sul Builder Hub (repo + slide)
 
 ## Se avanza tempo
