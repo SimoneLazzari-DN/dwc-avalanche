@@ -49,14 +49,14 @@ Legenda: `[x]` fatto · `[ ]` da fare · **← QUI** dove siamo · 🙋 serve Si
 - [x] App raggiungibile dai telefoni delle colleghe con un indirizzo https pubblico (tunnel verso il PC di Simone)
       + dominio aggiunto agli *Allowed domains* di thirdweb
 - [x] Giro di collaudo di Simone come HR: membro → profilo → accredito annuale (2.700 DWC) → cappello comprato tramite l'assistente AI
-- [ ] Conferma della consegna del cappello (DWC bruciati)  **← QUI**
+- [x] Conferma della consegna del cappello (DWC bruciati)
 - [x] Messaggio con le istruzioni passo passo per le tre colleghe (accesso con email; niente AVAX da procurarsi
       se la sponsorizzazione funziona)
-- [ ] Le tre colleghe accedono → HR le aggiunge al network, imposta il profilo, fa l'accredito annuale
+- [ ] 🙋 Le tre colleghe accedono  **← QUI** → HR le aggiunge al network, imposta il profilo, fa l'accredito annuale
       (i nomi restano SOLO nella rubrica locale, mai nella repo né sulla catena)
 
 ## Tappa 5 — Prova generale della presentazione — obiettivo 15:00
-- [ ] Scaletta cronometrata (3-4 minuti): problema → soluzione → demo dal vivo → perché Avalanche / mainnet
+- [x] Scaletta cronometrata (4 minuti) in `pitch/SCALETTA.md`, con checklist pre-palco e piano di riserva
 - [ ] **Momento live:** una collega chiede all'assistente «vorrei il cappello di Blockchain Beach» dal suo telefono →
       conferma e firma → il saldo scende → HR/fornitore conferma la consegna → DWC bruciati → prova sull'explorer
 - [ ] Secondo momento: richiesta oltre una regola (es. Edenred oltre il tetto) → l'AI spiega il rifiuto del contratto
@@ -65,8 +65,8 @@ Legenda: `[x]` fatto · `[ ]` da fare · **← QUI** dove siamo · 🙋 serve Si
 - [ ] Tab dell'explorer già aperti sui tre contratti; saldo AVAX del portafoglio di servizio controllato
 
 ## Tappa 6 — Consegna — entro le 16:00
-- [ ] Slide del pitch (sessione separata) riviste e unite alla repo
-- [ ] README aggiornato con i link alle transazioni della demo
+- [x] Slide del pitch riviste, con gli indirizzi veri, unite alla repo: `pitch/DWC-pitch.pdf` e `.pptx`
+- [x] README aggiornato con i link alle transazioni della demo
 - [ ] 🙋 Submission sul Builder Hub (repo + slide)
 
 ## Se avanza tempo

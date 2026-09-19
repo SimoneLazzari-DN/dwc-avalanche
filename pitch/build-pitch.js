@@ -264,9 +264,9 @@ async function main() {
 
     const steps = [
       ["Accredito annuale", "Calcolato dal regolamento in vigore"],
-      ["Buoni Edenred oltre il tetto", "Rifiutati dal contratto, spiegati dall'AI"],
-      ["Weekend su preventivo", "Richiesta → prezzo → accettazione → erogazione, con DWC bruciati"],
-      ["Scambio tra colleghi", "E il tentativo verso un estraneo: bloccato dal contratto"],
+      ["Il cappello, dal vivo", "Una collega lo chiede all'assistente dal suo telefono, conferma e firma"],
+      ["Consegna confermata", "Il banco conferma: i DWC in custodia vengono bruciati"],
+      ["Oltre il tetto", "80 € di buoni pasto: il contratto rifiuterebbe, l'AI spiega e propone 50"],
     ];
     let x = 0.6;
     steps.forEach(([head, sub], i) => {
