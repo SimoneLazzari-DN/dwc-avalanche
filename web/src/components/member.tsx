@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { actions, type Call } from "@/lib/actions";
 import { explorerTx } from "@/lib/web3";
 import { fmtDate, fmtDwc, useApp } from "./app-context";
+import { Avatar, ServiceArt } from "./visuals";
 
 const STATUS_LABEL: Record<string, string> = {
   richiesto: "In attesa del prezzo",
@@ -162,7 +163,6 @@ export function MyWelfare() {
   const colleagues = (state.directory ?? []).filter((p: any) => p.kind === "membro" && p.address.toLowerCase() !== address?.toLowerCase());
 
   const myName = nameOf(address);
-  const initials = myName.startsWith("0x") ? "?" : myName.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase();
   const earned = (me.movements ?? []).filter((m: any) => m.direction === "entrata").reduce((t: number, m: any) => t + m.amountDwc, 0);
   const spentTotal = (me.movements ?? []).filter((m: any) => m.direction === "uscita").reduce((t: number, m: any) => t + m.amountDwc, 0);
   const caps = (state.catalog ?? []).filter((s: any) => s.monthlyCapDwc > 0);
@@ -170,7 +170,7 @@ export function MyWelfare() {
   return (
     <div className="grid gap-4 md:grid-cols-3">
       <div className="card md:col-span-3 flex flex-wrap items-center gap-4">
-        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-ink text-lg font-semibold text-white">{initials}</div>
+        <Avatar address={address} size={64} />
         <div className="mr-auto">
           <p className="text-xl font-semibold">Ciao{myName.startsWith("0x") ? "" : `, ${myName.split(" ")[0]}`} 👋</p>
           <p className="text-sm text-muted">Questo è il tuo welfare: ogni movimento che vedi è registrato su Avalanche e verificabile.</p>
@@ -286,6 +286,7 @@ function ServiceCard({ s }: { s: any }) {
 
   return (
     <div className="card flex flex-col">
+      <ServiceArt id={s.id} title={s.title} />
       <div className="flex items-start justify-between gap-2">
         <h3 className="font-semibold leading-snug">{s.title}</h3>
         <span className="chip shrink-0">{isQuote ? "Su preventivo" : s.variableAmount ? "Importo libero" : fmtDwc(s.priceDwc)}</span>

@@ -72,8 +72,8 @@ const HR_TOOLS: ToolDef[] = [
   tool(
     "accredita_attivita_extra",
     "Accredita ore di attività extra-lavorative (baratto sociale o progetti interni): la tariffa oraria la decide il regolamento in base a livello e status di socio. Ammesso solo per attività senza compenso in euro alla cooperativa.",
-    { membro: address, minuti: int, progetto: str },
-    ["membro", "minuti", "progetto"],
+    { membro: address, ore: { type: "number", description: "Ore lavorate, anche con decimali (1.5 = un'ora e mezza)" }, progetto: str },
+    ["membro", "ore", "progetto"],
   ),
   tool(
     "accredita_classifica",

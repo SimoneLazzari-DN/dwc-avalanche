@@ -88,11 +88,12 @@ export const actions = {
     args: [p.membro, p.anno],
     summary: `Accredito annuale ${p.anno} a ${p.membro}`,
   }),
-  accredita_attivita_extra: (p: { membro: string; minuti: number; progetto: string }): Call => ({
+  // il contratto conta in minuti (per gestire le mezz'ore); alle persone si chiede in ore
+  accredita_attivita_extra: (p: { membro: string; ore: number; progetto: string }): Call => ({
     contract: "rules",
     fn: "creditExtraActivity",
-    args: [p.membro, p.minuti, p.progetto],
-    summary: `Attività extra: ${p.minuti} minuti a ${p.membro} (${p.progetto})`,
+    args: [p.membro, Math.round(Number(p.ore) * 60), p.progetto],
+    summary: `Attività extra: ${p.ore} ore a ${p.membro} (${p.progetto})`,
   }),
   accredita_classifica: (p: { anno: number; trimestre: number; primo: string; secondo: string; terzo: string }): Call => ({
     contract: "rules",

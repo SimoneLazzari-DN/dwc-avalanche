@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { explorerAddress, explorerTx } from "@/lib/web3";
 import { fmtDate, fmtDwc, short, useApp } from "./app-context";
+import { Avatar } from "./visuals";
 
 const num = (n: number) => (n ?? 0).toLocaleString("it-IT", { maximumFractionDigits: 0, useGrouping: "always" } as Intl.NumberFormatOptions);
 
@@ -83,14 +84,13 @@ function PersonCard({ person, onClose }: { person: any; onClose: () => void }) {
     value: movements.filter((m: any) => m.kind === kind).reduce((t: number, m: any) => t + m.amountDwc, 0),
   }));
   const name = nameOf(person.address);
-  const initials = name.startsWith("0x") ? "?" : name.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase();
 
   return (
     <div className="fixed inset-0 z-40 flex justify-end bg-black/40" onClick={onClose}>
       <aside className="h-full w-full max-w-xl overflow-y-auto bg-background p-5 shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-ink text-lg font-semibold text-white">{initials}</div>
+            <Avatar address={person.address} size={64} />
             <div>
               <h2 className="text-xl font-semibold">{name}</h2>
               <a className="font-mono text-xs text-muted underline" href={explorerAddress(person.address)} target="_blank" rel="noreferrer">
@@ -235,7 +235,7 @@ export function Overview() {
             <tbody className="divide-y divide-line">
               {people.map((p: any) => (
                 <tr key={p.address} className="cursor-pointer hover:bg-background" onClick={() => setSelected(p.address)}>
-                  <td className="py-3 font-medium">{nameOf(p.address)}{p.status !== "attivo" && <span className="chip ml-2">{p.status}</span>}</td>
+                  <td className="flex items-center gap-3 py-3 font-medium"><Avatar address={p.address} size={36} />{nameOf(p.address)}{p.status !== "attivo" && <span className="chip ml-2">{p.status}</span>}</td>
                   <td className="text-muted">{p.profile ? `${p.profile.isSocio ? "Socio" : "Non socio"} · ${p.profile.roles.join(", ") || "—"}` : "profilo mancante"}</td>
                   <td className="text-right tabular-nums">{num(p.receivedDwc)}</td>
                   <td className="text-right tabular-nums">{num(p.spentDwc)}</td>

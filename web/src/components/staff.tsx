@@ -5,6 +5,7 @@ import { useState } from "react";
 import { actions } from "@/lib/actions";
 import { explorerAddress } from "@/lib/web3";
 import { fmtDate, fmtDwc, short, useApp } from "./app-context";
+import { Avatar } from "./visuals";
 
 const ZERO = "0x0000000000000000000000000000000000000000";
 
@@ -71,7 +72,7 @@ export function Hr() {
 
   const [form, setForm] = useState({ name: "", address: "", kind: "membro", socio: false, partTime: false, start: `${year}-01-01`, level: "SENIOR", roles: [] as string[] });
   const [target, setTarget] = useState("");
-  const [minutes, setMinutes] = useState("");
+  const [hours, setHours] = useState("");
   const [project, setProject] = useState("");
   const [bonus, setBonus] = useState("");
   const [reason, setReason] = useState("");
@@ -103,7 +104,8 @@ export function Hr() {
             <tbody className="divide-y divide-line">
               {members.map((m) => (
                 <tr key={m.address}>
-                  <td className="py-2.5">
+                  <td className="flex items-center gap-2 py-2.5">
+                    <Avatar address={m.address} size={32} />
                     <b>{nameOf(m.address)}</b>{" "}
                     <a className="font-mono text-xs text-muted underline" href={explorerAddress(m.address)} target="_blank" rel="noreferrer">{short(m.address)}</a>
                   </td>
@@ -191,11 +193,11 @@ export function Hr() {
 
           <div className="rounded-xl bg-background p-3">
             <p className="text-sm font-medium">Attività extra (baratto sociale)</p>
-            <p className="text-xs text-muted">La tariffa oraria la decide il regolamento: tu indichi solo il tempo.</p>
+            <p className="text-xs text-muted">La tariffa oraria la decide il regolamento: tu indichi solo le ore (anche 1,5).</p>
             <div className="mt-2 flex gap-2">
-              <input className="input w-28" type="number" placeholder="Minuti" value={minutes} onChange={(e) => setMinutes(e.target.value)} />
+              <input className="input w-28" type="number" min="0" step="0.5" placeholder="Ore" value={hours} onChange={(e) => setHours(e.target.value)} />
               <input className="input" placeholder="Progetto" value={project} onChange={(e) => setProject(e.target.value)} />
-              <button className="btn" disabled={busy || !target || !Number(minutes) || !project} onClick={() => sign({ ...actions.accredita_attivita_extra({ membro: target, minuti: Number(minutes), progetto: project }), summary: `Attività extra: ${minutes} min a ${nameOf(target)}` })}>Accredita</button>
+              <button className="btn" disabled={busy || !target || !Number(hours) || !project} onClick={() => sign({ ...actions.accredita_attivita_extra({ membro: target, ore: Number(hours), progetto: project }), summary: `Attività extra: ${hours} ore a ${nameOf(target)}` })}>Accredita</button>
             </div>
           </div>
 

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="it">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DWC — Welfare DreamNet</title>
+<style>body{font-family:system-ui,sans-serif;background:#f6f4ef;color:#1c1b19;display:grid;place-items:center;min-height:100vh;margin:0;text-align:center;padding:24px}a{color:#1c1b19;font-weight:600}</style>
+<div>
+  <h1>DWC — Welfare DreamNet</h1>
+  <p id="msg">Ti sto portando all'app…</p>
+</div>
+<script>
+  // Indirizzo fisso: questa pagina porta sempre all'indirizzo attuale dell'app dimostrativa.
+  fetch("url.json?t=" + Date.now(), { cache: "no-store" })
+    .then((r) => r.json())
+    .then(({ url }) => {
+      document.getElementById("msg").innerHTML = 'Se non succede nulla, <a href="' + url + '">tocca qui</a>.';
+      location.replace(url);
+    })
+    .catch(() => (document.getElementById("msg").textContent = "App momentaneamente non raggiungibile: riprova tra un minuto."));
+</script>
+</html>

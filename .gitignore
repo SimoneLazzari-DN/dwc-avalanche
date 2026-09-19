@@ -20,3 +20,6 @@ deployments/hardhat.json
 # strumenti locali
 .tools/
 .claude/
+
+# foto delle persone: mai su git
+web/public/people/
