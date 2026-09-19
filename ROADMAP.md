@@ -52,7 +52,7 @@ Legenda: `[x]` fatto · `[ ]` da fare · **← QUI** dove siamo · 🙋 serve Si
 - [x] Conferma della consegna del cappello (DWC bruciati)
 - [x] Messaggio con le istruzioni passo passo per le tre colleghe (accesso con email; niente AVAX da procurarsi
       se la sponsorizzazione funziona)
-- [ ] 🙋 Le tre colleghe accedono  **← QUI** → HR le aggiunge al network, imposta il profilo, fa l'accredito annuale
+- [x] Le tre colleghe accedono → HR le aggiunge al network, imposta il profilo, fa l'accredito annuale
       (i nomi restano SOLO nella rubrica locale, mai nella repo né sulla catena)
 
 ## Tappa 5 — Prova generale della presentazione — obiettivo 15:00
@@ -67,7 +67,7 @@ Legenda: `[x]` fatto · `[ ]` da fare · **← QUI** dove siamo · 🙋 serve Si
 ## Tappa 6 — Consegna — entro le 16:00
 - [x] Slide del pitch riviste, con gli indirizzi veri, unite alla repo: `pitch/DWC-pitch.pdf` e `.pptx`
 - [x] README aggiornato con i link alle transazioni della demo
-- [ ] 🙋 Submission sul Builder Hub (repo + slide)
+- [x] Submission sul Builder Hub inviata alle 16:10 (repo, link alle slide, demo, contratti, logo e copertina)
 
 ## Se avanza tempo
 - [x] Logo DreamNet e personalizzazione dell'area personale
