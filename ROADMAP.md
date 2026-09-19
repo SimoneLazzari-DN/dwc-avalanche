@@ -42,14 +42,15 @@ Legenda: `[x]` fatto · `[ ]` da fare · **← QUI** dove siamo · 🙋 serve Si
 - [x] Contratti pubblicati su Fuji, regolamento v1+v2 e catalogo caricati, indirizzi nel README
 - [x] Assistente AI provato contro Fuji (risponde in ~7 secondi, spiega i rifiuti del contratto)
 - [x] Nel catalogo: **Cappello Blockchain Beach 2026** — 20 DWC, 10 pezzi, chi prima arriva
-- [ ] 🙋 Primo accesso di Simone con l'email → indirizzo → ruolo HR  **← QUI**
-- [ ] Verifica che i costi di rete sponsorizzati funzionino (piano B pronto: `NEXT_PUBLIC_SPONSOR_GAS=false` + `scripts/fund.js`)
+- [x] Primo accesso di Simone con l'email → indirizzo → ruolo HR
+- [x] Costi di rete sponsorizzati: funzionano (piano B pronto: `NEXT_PUBLIC_SPONSOR_GAS=false` + `scripts/fund.js`)
 
 ## Tappa 4 — Sistema pronto per persone vere — obiettivo 14:00
-- [ ] App raggiungibile dai telefoni delle colleghe con un indirizzo https pubblico (tunnel verso il PC di Simone)
+- [x] App raggiungibile dai telefoni delle colleghe con un indirizzo https pubblico (tunnel verso il PC di Simone)
       + dominio aggiunto agli *Allowed domains* di thirdweb
-- [ ] Giro di collaudo di Simone come HR: membro → profilo → accredito annuale → acquisto → erogazione
-- [ ] Messaggio con le istruzioni passo passo per le tre colleghe (accesso con email; niente AVAX da procurarsi
+- [x] Giro di collaudo di Simone come HR: membro → profilo → accredito annuale (2.700 DWC) → cappello comprato tramite l'assistente AI
+- [ ] Conferma della consegna del cappello (DWC bruciati)  **← QUI**
+- [x] Messaggio con le istruzioni passo passo per le tre colleghe (accesso con email; niente AVAX da procurarsi
       se la sponsorizzazione funziona)
 - [ ] Le tre colleghe accedono → HR le aggiunge al network, imposta il profilo, fa l'accredito annuale
       (i nomi restano SOLO nella rubrica locale, mai nella repo né sulla catena)

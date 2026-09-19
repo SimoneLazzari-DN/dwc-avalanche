@@ -49,6 +49,13 @@ by hand, catalogue limits are checked by memory, and nobody can verify that the 
 Deployed 2026-09-19 from block 58481840. Both regulation versions and the benefit catalogue are loaded on-chain.
 <!-- /DEPLOYMENTS -->
 
+### First end-to-end run on Fuji (19 Sep 2026)
+
+- Annual accrual computed by regulation v2 — 500 base + 2,200 roles, one transaction: [0xbecb88e0…](https://testnet.snowtrace.io/tx/0xbecb88e00a072fa1446afe55c2b091bb3db921c2819fcf7d715d84671c63567f)
+- *"vorrei il cappello di Blockchain Beach"* → AI prepares and dry-runs `redeem`, member signs, 20 DWC go to escrow, stock 10 → 9: [0xf26cea6e…](https://testnet.snowtrace.io/tx/0xf26cea6eb5f2fa350713eace2c56d8e6887f7c8dbdaba924590124b609b30061)
+
+All member transactions are gas-sponsored ERC-4337 user operations from e-mail wallets.
+
 ## Run it
 
 ```bash
