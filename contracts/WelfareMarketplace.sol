@@ -110,6 +110,12 @@ contract WelfareMarketplace is AccessControl {
         emit ServiceUpdated(serviceId);
     }
 
+    /// @notice Assegna il fornitore che eroga e conferma il servizio.
+    function setVendor(uint256 serviceId, address vendor) external onlyRole(HR_ROLE) {
+        _service(serviceId).vendor = vendor;
+        emit ServiceUpdated(serviceId);
+    }
+
     // ───────────────────────────── Prezzo fisso ─────────────────────────────
 
     /// @param quantity      unità richieste (ignorato per i servizi a importo libero)

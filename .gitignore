@@ -10,3 +10,9 @@ coverage.json
 .next/
 out/
 *.log
+
+# rubrica locale nome-indirizzo: mai su git
+web/data/
+# indirizzi della blockchain locale di sviluppo
+deployments/localhost.json
+deployments/hardhat.json

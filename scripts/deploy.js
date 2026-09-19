@@ -50,6 +50,7 @@ async function main() {
   const balance = await ethers.provider.getBalance(deployer.address);
   console.log(`Rete: ${hre.network.name} · deployer ${deployer.address} · saldo ${ethers.formatEther(balance)} AVAX`);
 
+  const fromBlock = await ethers.provider.getBlockNumber();
   const token = await ethers.deployContract("DWCToken", [deployer.address]);
   await token.waitForDeployment();
   const rules = await ethers.deployContract("WelfareRules", [token.target, deployer.address]);
@@ -74,6 +75,7 @@ async function main() {
     chainId: Number((await ethers.provider.getNetwork()).chainId),
     deployedAt: new Date().toISOString(),
     deployer: deployer.address,
+    fromBlock,
     contracts: { DWCToken: token.target, WelfareRules: rules.target, WelfareMarketplace: market.target },
   };
   fs.mkdirSync("deployments", { recursive: true });
