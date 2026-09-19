@@ -19,3 +19,4 @@ deployments/hardhat.json
 
 # strumenti locali
 .tools/
+.claude/
