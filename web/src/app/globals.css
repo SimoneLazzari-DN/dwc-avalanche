@@ -50,139 +50,141 @@ body {
   }
 }
 
-/* ───────────── Schermata d'ingresso ───────────── */
+/* ───────────── Schermata d'ingresso (fondo bianco) ───────────── */
 .splash {
   position: fixed;
   inset: 0;
   z-index: 100;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  padding: 24px;
-  background: #0b0b0b;
-  color: #fff;
-  text-align: center;
+  background: #ffffff;
+  color: #0b0b0b;
   cursor: pointer;
   overflow: hidden;
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: background-color 0.75s ease 0.2s;
 }
-.splash-leave {
-  opacity: 0;
-  transform: scale(1.08);
-  pointer-events: none;
-}
-.splash-grid {
-  position: absolute;
-  inset: -40%;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 44px 44px;
-  transform: perspective(700px) rotateX(62deg);
-  animation: splash-grid 14s linear infinite;
-  mask-image: radial-gradient(circle at 50% 45%, #000 0%, transparent 62%);
-}
-.splash-stage {
-  position: relative;
-  width: min(46vw, 210px);
-  aspect-ratio: 1;
-  perspective: 900px;
-}
-.splash-coin {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  filter: invert(1) drop-shadow(0 0 28px rgba(255, 255, 255, 0.25));
-  animation: splash-coin-in 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) both, splash-float 5s ease-in-out 1.5s infinite;
-}
-.splash-rings span {
+.splash::before {
+  /* trama di puntini, appena visibile */
+  content: "";
   position: absolute;
   inset: 0;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  opacity: 0;
-  animation: splash-ring 3.6s ease-out infinite;
+  background-image: radial-gradient(#0b0b0b 0.8px, transparent 0.8px);
+  background-size: 22px 22px;
+  opacity: 0.07;
+  mask-image: radial-gradient(circle at 50% 42%, #000 0%, transparent 70%);
+  transition: opacity 0.3s ease;
 }
-.splash-rings span:nth-child(2) { animation-delay: 1.2s; }
-.splash-rings span:nth-child(3) { animation-delay: 2.4s; border-color: #e84142; }
-.splash-title {
-  margin-top: 18px;
-  font-size: clamp(44px, 12vw, 84px);
-  font-weight: 800;
-  line-height: 1;
+.splash-leave { background-color: transparent; pointer-events: none; }
+.splash-leave::before { opacity: 0; }
+.splash-leave > :not(.splash-canvas) { opacity: 0 !important; transition: opacity 0.3s ease; animation: none !important; }
+
+.splash-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+.splash-top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px;
+  font-size: 11px;
   letter-spacing: 0.18em;
-  padding-left: 0.18em;
-}
-.splash-title span {
-  display: inline-block;
+  text-transform: uppercase;
+  color: #6b6b6b;
   opacity: 0;
-  transform: translateY(24px);
-  animation: splash-rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: splash-fade 0.8s ease 0.2s forwards;
 }
-.splash-title span:nth-child(1) { animation-delay: 0.9s; }
-.splash-title span:nth-child(2) { animation-delay: 1.05s; }
-.splash-title span:nth-child(3) { animation-delay: 1.2s; }
-.splash-tagline {
-  max-width: 26ch;
-  font-size: clamp(14px, 3.6vw, 18px);
-  color: rgba(255, 255, 255, 0.72);
+.splash-top img { height: 34px; width: auto; }
+
+.splash-center {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 24px;
+  text-align: center;
+}
+.splash-stage { position: relative; width: min(62vw, 270px); aspect-ratio: 1; display: grid; place-items: center; }
+.splash-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
-  animation: splash-rise 0.8s ease 1.5s forwards;
+  animation: splash-spin 26s linear infinite, splash-fade 1.2s ease 0.9s forwards;
 }
-.splash-enter {
-  margin-top: 18px;
-  border-radius: 9999px;
-  border: 1.5px solid #fff;
-  background: #fff;
-  color: #0b0b0b;
-  padding: 12px 40px;
-  font-size: 16px;
+.splash-ring text { font-size: 11.5px; font-weight: 600; letter-spacing: 0.34em; fill: #0b0b0b; }
+.splash-ring-line { fill: none; stroke: #0b0b0b; stroke-width: 0.6; stroke-dasharray: 2 6; opacity: 0.5; }
+.splash-coin {
+  width: 62%;
+  height: 62%;
+  transition: opacity 0.15s linear;
+  animation: splash-float 5s ease-in-out 2s infinite;
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.16));
+}
+
+.splash-title {
+  display: flex;
+  gap: 0.06em;
+  margin-top: 6px;
+  font-size: clamp(72px, 22vw, 150px);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+}
+.splash-title span { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.splash-title b { display: block; font-weight: 800; transform: translateY(105%); animation: splash-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+.splash-title span:nth-child(1) b { animation-delay: 1.1s; }
+.splash-title span:nth-child(2) b { animation-delay: 1.22s; }
+.splash-title span:nth-child(3) b { animation-delay: 1.34s; }
+
+.splash-tagline { font-size: clamp(15px, 4vw, 19px); line-height: 1.35; color: #3a3a3a; opacity: 0; animation: splash-fade 0.8s ease 1.7s forwards; }
+.splash-tagline em {
+  font-style: normal;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  color: #0b0b0b;
+  padding-bottom: 2px;
+  background: linear-gradient(#e84142, #e84142) no-repeat 0 100% / 0% 3px;
+  animation: splash-underline 0.7s ease 2.3s forwards;
+}
+
+.splash-enter {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 9999px;
+  border: 1.5px solid #0b0b0b;
+  background: #0b0b0b;
+  color: #fff;
+  padding: 13px 34px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
   opacity: 0;
-  animation: splash-rise 0.8s ease 1.9s forwards, splash-pulse 2.4s ease-in-out 2.8s infinite;
+  animation: splash-fade 0.8s ease 2.1s forwards, splash-pulse 2.6s ease-in-out 3.2s infinite;
+  transition: background 0.2s, color 0.2s;
 }
-.splash-enter:hover { background: transparent; color: #fff; }
-.splash-foot {
-  position: absolute;
-  bottom: 22px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
-  opacity: 0;
-  animation: splash-rise 0.8s ease 2.2s forwards;
-}
-.splash-foot img { height: 26px; width: auto; filter: invert(1); }
+.splash-enter span { transition: transform 0.2s; }
+.splash-enter:hover { background: #fff; color: #0b0b0b; }
+.splash-enter:hover span { transform: translateX(5px); }
 
-@keyframes splash-coin-in {
-  0% { opacity: 0; transform: rotateY(-540deg) scale(0.35); }
-  60% { opacity: 1; }
-  100% { opacity: 1; transform: rotateY(0) scale(1); }
-}
-@keyframes splash-float {
-  0%, 100% { transform: translateY(0) rotateY(0); }
-  50% { transform: translateY(-8px) rotateY(14deg); }
-}
-@keyframes splash-ring {
-  0% { opacity: 0.7; transform: scale(0.9); }
-  100% { opacity: 0; transform: scale(2.3); }
-}
-@keyframes splash-rise {
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes splash-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35); }
-  50% { box-shadow: 0 0 0 14px rgba(255, 255, 255, 0); }
-}
-@keyframes splash-grid {
-  to { background-position: 0 440px, 0 0; }
-}
+.splash-marquee { position: relative; border-top: 1px solid #0b0b0b; overflow: hidden; padding: 11px 0; opacity: 0; animation: splash-fade 0.8s ease 2.4s forwards; }
+.splash-marquee div { display: flex; width: max-content; animation: splash-marquee 28s linear infinite; }
+.splash-marquee span { font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap; padding: 0 18px; }
+.splash-marquee span::after { content: "✦"; margin-left: 36px; color: #e84142; }
+
+@keyframes splash-fade { to { opacity: 1; } }
+@keyframes splash-up { to { transform: translateY(0); } }
+@keyframes splash-spin { to { transform: rotate(360deg); } }
+@keyframes splash-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes splash-underline { to { background-size: 100% 3px; } }
+@keyframes splash-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(11, 11, 11, 0.28); } 50% { box-shadow: 0 0 0 14px rgba(11, 11, 11, 0); } }
+@keyframes splash-marquee { to { transform: translateX(-33.333%); } }
 @media (prefers-reduced-motion: reduce) {
   .splash *, .splash { animation-duration: 0.01s !important; animation-delay: 0s !important; }
 }
