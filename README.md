@@ -40,7 +40,13 @@ by hand, catalogue limits are checked by memory, and nobody can verify that the 
 ## Contracts on Fuji (C-Chain, chainId 43113)
 
 <!-- DEPLOYMENTS -->
-_Addresses are written here after deployment._
+| Contract | Address |
+|---|---|
+| `DWCToken` | [`0xD27985aAC8FB91c0d6a73d329bDCe0707Df0A81C`](https://testnet.snowtrace.io/address/0xD27985aAC8FB91c0d6a73d329bDCe0707Df0A81C) |
+| `WelfareRules` | [`0x25b80Ef7C77FD7C9812Da69DD4271612b5fb642a`](https://testnet.snowtrace.io/address/0x25b80Ef7C77FD7C9812Da69DD4271612b5fb642a) |
+| `WelfareMarketplace` | [`0x6D7F0f1dB66B299057542ee89E1ddB22E24746d9`](https://testnet.snowtrace.io/address/0x6D7F0f1dB66B299057542ee89E1ddB22E24746d9) |
+
+Deployed 2026-09-19 from block 58481840. Both regulation versions and the benefit catalogue are loaded on-chain.
 <!-- /DEPLOYMENTS -->
 
 ## Run it
